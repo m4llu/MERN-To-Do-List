@@ -16,9 +16,7 @@ app.use(express.urlencoded({ extended: false}));
 app.use("/", indexRouter);
 app.use("/users", userRoutes);
 
-mongoose.connect(
-    "mongodb+srv://m4llu:9Z74r9Ijh3Fuim6Y@cluster0.lheofs0.mongodb.net/"
-)
+mongoose.connect(process.env.MONGO_URL);
 
 mongoose.connection
     .once("open", function () {
