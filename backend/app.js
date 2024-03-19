@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const createError = require("http-errors");
 const express = require("express");
 const indexRouter = require("./routes/index");
@@ -7,12 +7,12 @@ const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
-const { Kitten } = require("./mongo/schema")
+const { Task } = require("./mongo/schema");
 
 app.use(express.json());
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use("/", indexRouter);
 app.use("/users", userRoutes);
 
@@ -37,20 +37,22 @@ app.use(function (err, req, res, next) {
     res.send("error");
 });
 
-app.get("/:id", async (req, res) => {
+// Route to update a task by ID
+app.put("/tasks/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { name } = req.body;
-        const updateKitten = await Kitten.findByIdAndUpdate(
+        const { name, description } = req.body;
+        const updatedTask = await Task.findByIdAndUpdate(
             id,
-            {name},
+            { name, description },
             { new: true }
         );
-        res.json({ kitten: updateKitten});
-    }   catch (error) {
-        console.error("virhe kissan päivittämisessä", error);
+        res.json({ task: updatedTask });
+    } catch (error) {
+        console.error("Error updating task", error);
+        res.status(500).json({ error: "An error occurred while updating the task" });
     }
-})
+});
 
 const port = 3001;
 app.listen(port, () => {

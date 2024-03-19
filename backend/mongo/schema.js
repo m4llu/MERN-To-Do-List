@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
 
-const kittySchema = new mongoose.Schema({
-    name: String,
-    time: Number,
+const taskSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    color: String
 });
 
-kittySchema.methods.speak = function speak() {
-    const greeting = this.name
-    ? "Meow name is" + this.name
-    : "I don't have a name";
-    console.log(greeting)
-};
+const Task = mongoose.model("Task", taskSchema);
 
-const Kitten = mongoose.model("Kitten", kittySchema);
-module.exports = { Kitten };
+module.exports = { Task };

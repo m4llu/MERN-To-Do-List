@@ -1,51 +1,62 @@
 const mongoose = require("mongoose");
-const { Kitten } = require("./schema");
+const { Task } = require("./schema"); // Import the Task model
 
-/* LIST ALL (Kitties ) */
-async function getAllKitties(params) {
-    const allKitties = await Kitten.find();
-    return allKitties.map((k) => {
-    return {
-    id: k._id.toHexString(),
-    name: k.name,
-    time: k.time,
-    };
-});
-}
-
-/* SAVE */
-async function saveKitty(kitten) {
-    console.log("daadaa1 :D", JSON.stringify(kitten));
-    const birthday = new Date().getTime();
-    const saveKitty = await Kitten.create({
-    name: kitten.name,
-    time: birthday,
-    });
-
-    console.log(saveKitty);
-    const kittenId = saveKitty._id.toHexString();
-    return {
-    id: kittenId,
-    name: kitten.name,
-    time: birthday,
-};
-
-console.log("daadaa3 :D");
-}
-
-/* DELETE */
-
-/* TASO 1 */
-async function deleteKitty(id) {
-try {
-    const x = await Kitten.remove({ _id: mongoose.Types.ObjectId(id) });
-    if (x && !x.deletedCount) {
-    throw new Error("yhtää kissaa ei poistettu");
-    };
-
-    console.log("poistettiin: ", x);
+async function getAllTasks(params) {
+    try {
+        const allTasks = await Task.find();
+        
+        return allTasks.map((task) => {
+            return {
+                id: task._id.toHexString(),
+                title: task.title,
+                color: task.color,
+                description: task.description,
+            };
+        });
     } catch (error) {
-    console.error("Objektin poistaminen epäonnistui!: ", error);
-    throw error;
+        // Handle any errors that occur during the database query
+        console.error('Error fetching tasks:', error);
+        // You can choose to throw the error or return a specific value
+        throw error;
     }
 }
+
+async function saveTask(task) {
+    console.log("Task to save:", JSON.stringify(data));
+    const timestamp = new Date().getTime();
+    const savedTask = await Task.create({
+        title: task.title,
+        color: task.color,
+        description: task.description,
+    });
+
+    console.log(savedTask);
+    const taskId = savedTask._id.toHexString();
+    return {
+        id: taskId,
+        title: data.title,
+        color: data.color,
+        description: data.description,
+        time: timestamp,
+    };
+}
+
+async function deleteTask(id) {
+    try {
+        const result = await Task.deleteOne({ _id: mongoose.Types.ObjectId(id) });
+        if (result && result.deletedCount === 0) {
+            throw new Error("No task was deleted");
+        }
+
+        console.log("Deleted task: ", result);
+    } catch (error) {
+        console.error("Failed to delete task: ", error);
+        throw error;
+    }
+}
+
+module.exports = {
+    getAllTasks,
+    saveTask,
+    deleteTask,
+};

@@ -36,7 +36,7 @@ function DayPicker() {
         <div className="dayPicker">
             <div className="arrow" onClick={handlePrevDay}>{'<'}</div>
             <div className="dayInfo">
-                <p>{days[selectedDayIndex]}</p>
+                <p className="day">{days[selectedDayIndex]}</p>
                 <p>{currentDate()}</p>
             </div>
             <div className="arrow" onClick={handleNextDay}>{'>'}</div>
