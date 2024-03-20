@@ -10,11 +10,20 @@ const mongoose = require("mongoose");
 const { Task } = require("./mongo/schema");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors()); // Apply cors middleware here
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
+
+// Apply cors middleware with specific configuration
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use("/", indexRouter);
 app.use("/users", userRoutes);
+
 
 mongoose.connect(process.env.MONGO_URL);
 

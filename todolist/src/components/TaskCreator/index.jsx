@@ -13,7 +13,7 @@ function saveDataToBackend(taskData) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(taskData),
+        body: JSON.stringify({ title: taskData.title, color: taskData.color, description: taskData.description }),
     })
     .then(response => response.json())
     .then(data => {
@@ -25,7 +25,6 @@ function saveDataToBackend(taskData) {
         // Handle error
     });
 }
-
 function TaskCreator() {
     const [selectedColor, setSelectedColor] = useState('');
 

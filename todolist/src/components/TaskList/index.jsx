@@ -8,6 +8,7 @@ function List() {
         fetch('http://localhost:3001/')
             .then(response => response.json())
             .then(data => {
+                console.log('Fetched tasks:', data);
                 setTasks(data); // Set the retrieved tasks in the state
             })
             .catch(error => {
@@ -28,7 +29,7 @@ function List() {
             <button onClick={handleRefresh}>Refresh</button>
             {Array.isArray(tasks) && tasks.map(task => (
                 <Task
-                    key={task._id} // Assuming each task has a unique ID
+                    key={task.id} // Assuming each task has a unique ID
                     title={task.title}
                     description={task.description} // Update from 'contents' to 'description'
                     color={task.color}

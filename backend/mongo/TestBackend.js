@@ -1,28 +1,24 @@
 const mongoose = require("mongoose");
-const { Task } = require("./schema"); // Import the Task model
+const { Task } = require("./schema");
 
-async function getAllTasks(params) {
+async function getAllTasks() {
     try {
         const allTasks = await Task.find();
         
-        return allTasks.map((task) => {
-            return {
-                id: task._id.toHexString(),
-                title: task.title,
-                color: task.color,
-                description: task.description,
-            };
-        });
+        return allTasks.map((task) => ({
+            id: task._id.toHexString(),
+            title: task.title,
+            color: task.color,
+            description: task.description,
+        }));
     } catch (error) {
-        // Handle any errors that occur during the database query
         console.error('Error fetching tasks:', error);
-        // You can choose to throw the error or return a specific value
         throw error;
     }
 }
 
-async function saveTask(task) {
-    console.log("Task to save:", JSON.stringify(data));
+async function saveData(task) {
+    console.log("Task to save:", JSON.stringify(task));
     const timestamp = new Date().getTime();
     const savedTask = await Task.create({
         title: task.title,
@@ -34,17 +30,17 @@ async function saveTask(task) {
     const taskId = savedTask._id.toHexString();
     return {
         id: taskId,
-        title: data.title,
-        color: data.color,
-        description: data.description,
+        title: task.title,
+        color: task.color,
+        description: task.description,
         time: timestamp,
     };
 }
 
-async function deleteTask(id) {
+async function deleteData(id) {
     try {
         const result = await Task.deleteOne({ _id: mongoose.Types.ObjectId(id) });
-        if (result && result.deletedCount === 0) {
+        if (result.deletedCount === 0) {
             throw new Error("No task was deleted");
         }
 
@@ -57,6 +53,6 @@ async function deleteTask(id) {
 
 module.exports = {
     getAllTasks,
-    saveTask,
-    deleteTask,
+    saveData,
+    deleteData,
 };
