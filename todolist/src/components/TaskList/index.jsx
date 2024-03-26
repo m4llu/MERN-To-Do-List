@@ -3,13 +3,14 @@ import Task from './task';
 
 function List() {
     const [tasks, setTasks] = useState([]);
+    const [updateFlag, setUpdateFlag] = useState(false); // State variable to trigger updates
 
     const fetchTasks = () => {
         fetch('http://localhost:3001/')
             .then(response => response.json())
             .then(data => {
                 console.log('Fetched tasks:', data);
-                setTasks(data); // Set the retrieved tasks in the state
+                setTasks(data);
             })
             .catch(error => {
                 console.error('Error fetching tasks:', error);
@@ -18,21 +19,22 @@ function List() {
 
     useEffect(() => {
         fetchTasks();
-    }, []);
+    }, [updateFlag]); // Run fetchTasks whenever updateFlag changes
 
     const handleRefresh = () => {
-        fetchTasks();
+        setUpdateFlag(!updateFlag); // Toggle updateFlag to trigger re-fetch
     };
 
     return (
-        <div className="list">
-            <button onClick={handleRefresh}>Refresh</button>
+        <div className="list">            
             {Array.isArray(tasks) && tasks.map(task => (
                 <Task
-                    key={task.id} // Assuming each task has a unique ID
+                    key={task.id}
+                    id={task.id}
                     title={task.title}
-                    description={task.description} // Update from 'contents' to 'description'
+                    description={task.description}
                     color={task.color}
+                    setUpdateFlag={setUpdateFlag} // Pass setUpdateFlag to Task component
                 />
             ))}
         </div>

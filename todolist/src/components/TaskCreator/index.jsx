@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-
 const color1 = 'rgba(140, 56, 56, 1)';
 const color2 = 'rgba(138, 140, 56, 1)';
 const color3 = 'rgba(56, 140, 110, 1)';
 const color4 = 'rgba(71, 127, 158, 1)';
 const color5 = 'rgba(140, 56, 137, 1)';
 const color6 = 'rgba(73, 56, 140, 1)';
-
-function saveDataToBackend(taskData) {
+function saveDataToBackend(taskData, setUpdateFlag) {
     fetch('http://localhost:3001/', {
         method: 'POST',
         headers: {
@@ -18,14 +16,14 @@ function saveDataToBackend(taskData) {
     .then(response => response.json())
     .then(data => {
         console.log('Data saved:', data);
-        // Handle success response
+        setUpdateFlag(prev => !prev); // Trigger update in List component
     })
     .catch(error => {
         console.error('Error saving data:', error);
-        // Handle error
     });
 }
-function TaskCreator() {
+
+function TaskCreator({ setUpdateFlag }) {
     const [selectedColor, setSelectedColor] = useState('');
 
     const [taskData, setTaskData] = useState({
@@ -40,8 +38,7 @@ function TaskCreator() {
     };
 
     const handleAddTask = () => {
-        saveDataToBackend(taskData);
-        // You can also reset the taskData state here if needed
+        saveDataToBackend(taskData, setUpdateFlag);
         setTaskData({
             title: '',
             color: '',

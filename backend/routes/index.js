@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const backend = require("../mongo/TestBackend");
+const mongoose = require("mongoose");
 
 console.log("Backend object:", backend); // Check the backend object
 
@@ -32,8 +33,9 @@ router.get("/", async function (req, res, next) {
 router.delete("/:id", async function (req, res, next) {
     try {
         const dataId = req.params.id;
+        const objectId = new mongoose.Types.ObjectId(dataId);
         console.log("Deleting task with ID:", dataId); // Log the ID being deleted
-        await backend.deleteData(dataId);
+        await backend.deleteData(objectId);
         res.json({ status: "ok" });
     } catch (error) {
         console.error("Error:", error);
