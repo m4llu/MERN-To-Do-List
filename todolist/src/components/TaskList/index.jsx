@@ -1,10 +1,10 @@
+// List.js
 import React, { useState, useEffect } from 'react';
 import Task from './task';
 
-function List() {
+function List({ updateFlag, setUpdateFlag }) {
     const [tasks, setTasks] = useState([]);
-    const [updateFlag, setUpdateFlag] = useState(false); // State variable to trigger updates
-
+    
     const fetchTasks = () => {
         fetch('http://localhost:3001/')
             .then(response => response.json())
@@ -20,10 +20,6 @@ function List() {
     useEffect(() => {
         fetchTasks();
     }, [updateFlag]); // Run fetchTasks whenever updateFlag changes
-
-    const handleRefresh = () => {
-        setUpdateFlag(!updateFlag); // Toggle updateFlag to trigger re-fetch
-    };
 
     return (
         <div className="list">            

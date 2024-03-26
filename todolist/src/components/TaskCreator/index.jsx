@@ -23,7 +23,7 @@ function saveDataToBackend(taskData, setUpdateFlag) {
     });
 }
 
-function TaskCreator({ setUpdateFlag }) {
+function TaskCreator({ onTaskAdded }) {
     const [selectedColor, setSelectedColor] = useState('');
 
     const [taskData, setTaskData] = useState({
@@ -38,7 +38,9 @@ function TaskCreator({ setUpdateFlag }) {
     };
 
     const handleAddTask = () => {
-        saveDataToBackend(taskData, setUpdateFlag);
+        saveDataToBackend(taskData, () => {
+            onTaskAdded(); 
+        });
         setTaskData({
             title: '',
             color: '',
