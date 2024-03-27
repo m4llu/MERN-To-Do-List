@@ -1,10 +1,11 @@
 // List.js
 import React, { useState, useEffect } from 'react';
-import Task from './task';
+import Task from './task'; // Assuming the Task component file is named Task.js
 
-function List({ updateFlag, setUpdateFlag }) {
+function List({ updateFlag, setUpdateFlag, theme, onSelect }) { // Add onSelect prop
     const [tasks, setTasks] = useState([]);
-    
+    const [selectedTaskId, setSelectedTaskId] = useState(null); // State to track selected task ID
+
     const fetchTasks = () => {
         fetch('http://localhost:3001/')
             .then(response => response.json())
@@ -21,8 +22,13 @@ function List({ updateFlag, setUpdateFlag }) {
         fetchTasks();
     }, [updateFlag]); // Run fetchTasks whenever updateFlag changes
 
+    const handleTaskSelect = (taskId) => {
+        setSelectedTaskId(taskId);
+        onSelect(taskId); // Call onSelect prop to update selectedTaskId in App.js
+    };
+
     return (
-        <div className="list">            
+        <div className="list" style={{ backgroundColor: theme.inputBackground }}>            
             {Array.isArray(tasks) && tasks.map(task => (
                 <Task
                     key={task.id}
@@ -30,7 +36,10 @@ function List({ updateFlag, setUpdateFlag }) {
                     title={task.title}
                     description={task.description}
                     color={task.color}
-                    setUpdateFlag={setUpdateFlag} // Pass setUpdateFlag to Task component
+                    setUpdateFlag={setUpdateFlag}
+                    onSelect={handleTaskSelect} // Pass handleTaskSelect to Task component
+                    selectedTaskId={selectedTaskId} // Pass selectedTaskId to Task component
+                    theme={theme} // Pass theme to Task component
                 />
             ))}
         </div>

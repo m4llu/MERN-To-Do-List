@@ -1,8 +1,6 @@
-function TopNav() {
-    <div className="topNav">
-        <a href="google.com">Test</a>
-        <a href="google.com">test</a>
-        <a href="google.com">test</a>
+function TopNav(props) {
+    return <div className="topNav" style={{backgroundColor: props.theme.nav}}>
+        {props.children}
     </div>
 }
 

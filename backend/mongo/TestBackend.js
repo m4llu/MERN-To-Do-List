@@ -51,8 +51,34 @@ async function deleteData(id) {
     }
 }
 
+async function editData(id, newData) {
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(
+            id,
+            newData,
+            { new: true } // Return the updated task
+        );
+
+        if (!updatedTask) {
+            throw new Error("Task not found");
+        }
+
+        console.log("Updated task:", updatedTask);
+        return {
+            id: updatedTask._id.toHexString(),
+            title: updatedTask.title,
+            color: updatedTask.color,
+            description: updatedTask.description,
+        };
+    } catch (error) {
+        console.error("Error editing task:", error);
+        throw error;
+    }
+}
+
 module.exports = {
     getAllTasks,
     saveData,
     deleteData,
+    editData
 };

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
+
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function DayPicker() {
+function DayPicker({theme}) {
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -32,14 +33,15 @@ function DayPicker() {
         return `${date} ${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(year, month))} ${year}`;
     };
 
+
     return (
         <div className="dayPicker">
-            <div className="arrow" onClick={handlePrevDay}>{'<'}</div>
+            <div className="arrow" onClick={handlePrevDay} style={{color: theme.mainText}}>{'<'}</div>
             <div className="dayInfo">
-                <p className="day">{days[selectedDayIndex]}</p>
-                <p>{currentDate()}</p>
+                <p className="day" style={{color: theme.mainText}}>{days[selectedDayIndex]}</p>
+                <p style={{color: theme.secondaryText}}>{currentDate()}</p>
             </div>
-            <div className="arrow" onClick={handleNextDay}>{'>'}</div>
+            <div className="arrow" onClick={handleNextDay} style={{color: theme.mainText}}>{'>'}</div>
         </div>
     );
 }

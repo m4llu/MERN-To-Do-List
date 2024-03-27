@@ -43,4 +43,27 @@ router.delete("/:id", async function (req, res, next) {
     }
 });
 
+/* PUT route to update a task by ID from the root endpoint */
+router.put("/:id", async function (req, res, next) {
+    try {
+        const taskId = req.params.id;
+        const { title, color, description } = req.body;
+        const updatedTask = await Task.findByIdAndUpdate(
+            taskId,
+            { title, color, description },
+            { new: true } // Return the updated task
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ status: "error", message: "Task not found" });
+        }
+
+        console.log("Updated task:", updatedTask);
+        res.json({ status: "ok", updatedTask });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ status: "ERROR 500" });
+    }
+});
+
 module.exports = router;
