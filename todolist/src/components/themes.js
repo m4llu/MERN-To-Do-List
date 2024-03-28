@@ -21,11 +21,12 @@ const themes = {
         color5: '#3C8A95',
         color6: '#5B59A3',
         background: '#2A3C42',
-        mainText: '#ABDDE0',
+        mainText: '#FFFFFF',
         secondaryText: '#5F7B7C',
         inputText: '#B4B3B3',
         inputBackground: '#2B313B',
-        nav: '#243236'
+        nav: '#243236',
+        glow: '#ABDDE0'
     },
     coral: {
         color1: '#42B8D1',
@@ -68,6 +69,22 @@ const themes = {
         inputText: '#B4B3B3',
         inputBackground: '#543D58',
         nav: '#151D28'
+    },
+    hacker: {
+        color1: '#1d8231',
+        color2: '#00FF7F',
+        color3: '#40E0D0',
+        color4: '#32CD32',
+        color5: '#00FA9A',
+        color6: '#98FB98',
+        background: '#000000',
+        mainText: '#00FF00',
+        secondaryText: '#008000',
+        inputText: '#00FF7F',
+        inputBackground: '#001400',
+        nav: '#001F00',
+        glow: '#00FF00',
+        glow2: 'rgba(0, 255, 0, 0.5)'
     }
 };
 

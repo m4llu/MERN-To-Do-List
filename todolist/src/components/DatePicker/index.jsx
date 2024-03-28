@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function DayPicker({theme}) {
+function DayPicker({ theme }) {
     const [selectedDayIndex, setSelectedDayIndex] = useState(0);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -33,15 +32,19 @@ function DayPicker({theme}) {
         return `${date} ${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(year, month))} ${year}`;
     };
 
+    const textStyles = {
+        color: theme.mainText,
+        textShadow: theme.glow ? `0 0 5px ${theme.glow}` : 'none'
+    };
 
     return (
         <div className="dayPicker">
-            <div className="arrow" onClick={handlePrevDay} style={{color: theme.mainText}}>{'<'}</div>
+            <button className="arrow" onClick={handlePrevDay} style={{ color: theme.mainText, textShadow: theme.glow ? `0 0 5px ${theme.glow}` : 'none'  }}>{'<'}</button>
             <div className="dayInfo">
-                <p className="day" style={{color: theme.mainText}}>{days[selectedDayIndex]}</p>
-                <p style={{color: theme.secondaryText}}>{currentDate()}</p>
+                <p className="day" style={textStyles}>{days[selectedDayIndex]}</p>
+                <p style={{ color: theme.secondaryText, textShadow: theme.glow ? `0 0 5px ${theme.glow}` : 'none' }}>{currentDate()}</p>
             </div>
-            <div className="arrow" onClick={handleNextDay} style={{color: theme.mainText}}>{'>'}</div>
+            <button className="arrow" onClick={handleNextDay} style={{ color: theme.mainText, textShadow: theme.glow ? `0 0 5px ${theme.glow}` : 'none'  }}>{'>'}</button>
         </div>
     );
 }

@@ -67,10 +67,17 @@ function TaskCreator({ onTaskAdded, theme, isTaskSelected }) {
                     className="titleInput"
                     value={taskData.title}
                     onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}
-                    style={{backgroundColor: theme.inputBackground, color: theme.inputText}}
+                    style={{
+                        backgroundColor: theme.inputBackground,
+                        color: theme.inputText,
+                        boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                    }}
                 />
                 <div className="colorSelector"
-                style={{backgroundColor: theme.inputBackground}}>
+                    style={{
+                        backgroundColor: theme.inputBackground,
+                        boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                    }}>
                     {colorArray.map((color, index) => (
                         <div key={index} className={`color ${selectedColor === color ? 'selected' : ''}`} style={{ backgroundColor: color }} onClick={() => handleColorClick(color)}></div>
                     ))}
@@ -83,19 +90,29 @@ function TaskCreator({ onTaskAdded, theme, isTaskSelected }) {
                     className="taskInput"
                     value={taskData.description}
                     onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}
-                    style={{backgroundColor: theme.inputBackground, color: theme.inputText}}
+                    style={{
+                        backgroundColor: theme.inputBackground,
+                        color: theme.inputText,
+                        boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                    }}
                 ></textarea>
                 {isTaskSelected ? (
                     <button
                         className='add'
-                        style={{ backgroundColor: theme.color1 }} // Set the button color
+                        style={{
+                            backgroundColor: theme.color1,
+                            boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                        }} // Set the button color
                         onClick={handleAddTask}>
                         EDIT
                     </button>
                 ) : (
                     <button
                         className='add'
-                        style={{ backgroundColor: taskData.color || theme.color1 }} // Set the button color
+                        style={{
+                            backgroundColor: taskData.color || theme.color1,
+                            boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                        }} // Set the button color
                         onClick={handleAddTask}>
                         ADD
                     </button>

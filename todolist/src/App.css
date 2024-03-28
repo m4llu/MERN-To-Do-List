@@ -20,9 +20,7 @@
   --YELLOW-LIGHT: rgba(252, 255, 114, 1);
 }
 
-body {
-  background-color: var(--BACKGROUND);
-}
+
 
 .App {
   display: flex;
@@ -78,7 +76,6 @@ body {
   align-items: center;
   justify-content: center;
   font-family: Poppins;
-  color: var(--LIGHT-GREY);
 }
 
 .day {
@@ -94,18 +91,21 @@ body {
 .arrow  {
   margin: 10px;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+}
+
+.arrow:hover {
+  filter: brightness(150%);
 }
 
 input {
-  background-color: var(--INPUT);
   border: none;
   border-radius: 12px;
-  box-shadow: inset 0px 4px 4px #00000040;
   position: relative;
   font-family: Poppins;
   padding: 2%;
-  color: var(--LIGHT-GREY);
 }
 
 .taskCreator {
@@ -114,6 +114,7 @@ input {
   width: 60%;
   max-width: 602px;
   padding: 2%;
+  margin: 0px;
 }
 
 .taskCreator .top {
@@ -126,6 +127,7 @@ input {
 .taskCreator .bottom {
   display: flex;
   position: relative;
+  justify-content: center;
 }
 
 .colorSelector {
@@ -135,10 +137,8 @@ input {
   display: flex;
   width: 48.5%;
   margin: 0.5%;
-  background-color: var(--INPUT);
   border: none;
   border-radius: 12px;
-  box-shadow: inset 0px 4px 4px #00000040;
   position: relative;
 }
 
@@ -173,29 +173,25 @@ input {
 }
 
 .taskInput {
-  max-width: 76%;
+  width: 100%;
   resize: none;
   height: 40px;
   margin: 0.5%;
   font-size: 16px;
   font-weight: 400;
-  background-color: var(--INPUT);
   border: none;
   border-radius: 12px;
-  box-shadow: inset 0px 4px 4px #00000040;
   position: relative;
   font-family: Poppins;
   padding: 4%;
-  color: var(--LIGHT-GREY);
 }
 
 .add {
   height: auto;
   margin: 0.5%;
-  width: 24%;
+  width: 20%;
   border: none;
   border-radius: 15%;
-  background-color: var(--BUTTON);
   color: rgb(255, 255, 255);
   font-family: Poppins;
   font-weight: 600;
@@ -212,15 +208,18 @@ input {
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: hidden;
-  width: 56%;
-  max-width: 540px;
+  width: 60%;
+  max-width: 602px;
   height: 300px;
   padding: 2%;
-  background-color: var(--INPUT);
   border-radius: 30px;
-  box-shadow: inset 0px 4px 4px #00000040;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
+  box-sizing: border-box;
 }
+.list::-webkit-scrollbar {
+  visibility: hidden;
+}
+
 
 .task {
   color: #FFF;
@@ -248,3 +247,9 @@ input {
   margin: 5px;
 }
 
+select {
+  border-radius: 5%;
+  border: none;
+  font-size: medium;
+  padding: 2px;
+}
