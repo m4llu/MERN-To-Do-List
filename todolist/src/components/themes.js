@@ -42,20 +42,6 @@ const themes = {
         inputBackground: '#758EA5',
         nav: '#86969C'
     },
-    cyberpunk: {
-        color1: '#BE285E',
-        color2: '#F98F13',
-        color3: '#C5534B',
-        color4: '#716362',
-        color5: '#7E3C95',
-        color6: '#5453AB',
-        background: '#0C0C0C',
-        mainText: '#C5423A',
-        secondaryText: '#8E4D4D',
-        inputText: '#C9D9DE',
-        inputBackground: '#30131C',
-        nav: '#290B1D'
-    },
     cherry: {
         color1: '#D9ABE0',
         color2: '#B25E9B',
@@ -134,7 +120,7 @@ const themes = {
         color2: '#4682B4',
         color3: '#B0C4DE',
         color4: '#AFEEEE',
-        color5: '#F0FFFF',
+        color5: '#AAFFFF',
         color6: '#ADD8E6',
         background: '#F0F8FF',
         mainText: '#000000',

@@ -224,7 +224,18 @@ input {
 }
 
 .taskButton {
-  margin: 5px;
+  margin: -10px;
+  background: none;
+  border: none;
+  color: #FFF;
+  font-weight: 600;
+  font-size: 25px;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.taskButton:hover {
+  opacity: 1;
 }
 
 select {
@@ -232,4 +243,85 @@ select {
   border: none;
   font-size: medium;
   padding: 2px;
+}
+
+@media only screen and (max-width: 768px) {
+  .App-header {
+    font-size: calc(8px + 2vmin); /* Decrease font size for smaller screens */
+  }
+
+  .day {
+    font-size: 20px; /* Decrease font size for day */
+  }
+
+  .titleInput {
+    font-size: 18px; /* Decrease font size for title input */
+  }
+
+  .taskInput {
+    height: 30px; /* Decrease input height */
+  }
+
+  .taskCreator {
+    width: 80%; /* Decrease width of task creator */
+  }
+
+  .colorSelector {
+    width: 45%; /* Decrease width of color selector */
+  }
+
+  .color {
+    margin: 1%; /* Adjust margin for colors */
+  }
+
+  .list {
+    width: 80%; /* Decrease width of list */
+  }
+
+  .task {
+    width: 90%; /* Decrease width of task */
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .App-header {
+    font-size: calc(8px + 2vmin); /* Decrease font size for smaller screens */
+  }
+
+  .day {
+    font-size: 20px; /* Decrease font size for day */
+  }
+
+  .titleInput {
+    font-size: 18px; /* Decrease font size for title input */
+  }
+
+  .taskInput {
+    height: 30px; /* Decrease input height */
+  }
+
+  .top {
+    height: 2%;
+  }
+
+  .taskCreator {
+    width: 80%; /* Decrease width of task creator */
+    height: 20%;
+  }
+
+  .colorSelector {
+    width: 45%;
+  }
+
+  .color {
+    margin: 1%; /* Adjust margin for colors */
+  }
+
+  .list {
+    width: 80%; /* Decrease width of list */
+  }
+
+  .task {
+    width: 90%; /* Decrease width of task */
+  }
 }
