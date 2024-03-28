@@ -33,6 +33,7 @@ function TaskCreator({ onTaskAdded, theme, isTaskSelected }) {
     useEffect(() => {
         // Set the first color as selected when the component mounts or when the theme changes
         setSelectedColor(theme.color1);
+        setTaskData({ ...taskData, color: theme.color1 });
     }, [theme.color1]);
 
     useEffect(() => {
