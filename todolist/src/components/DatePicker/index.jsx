@@ -7,24 +7,20 @@ function DayPicker({ theme }) {
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const handlePrevDay = () => {
-        setSelectedDayIndex((prevIndex) => (prevIndex === 0 ? 6 : prevIndex - 1));
-        updateSelectedDate(selectedDayIndex - 1);
+        const newSelectedDate = new Date(selectedDate);
+        newSelectedDate.setDate(selectedDate.getDate() - 1);
+        setSelectedDate(newSelectedDate);
+        setSelectedDayIndex((selectedDayIndex === 0 ? 6 : selectedDayIndex - 1));
     };
 
     const handleNextDay = () => {
-        setSelectedDayIndex((prevIndex) => (prevIndex === 6 ? 0 : prevIndex + 1));
-        updateSelectedDate(selectedDayIndex + 1);
-    };
-
-    const updateSelectedDate = (index) => {
-        const today = new Date();
-        const newSelectedDate = new Date(today);
-        newSelectedDate.setDate(today.getDate() + index);
+        const newSelectedDate = new Date(selectedDate);
+        newSelectedDate.setDate(selectedDate.getDate() + 1);
         setSelectedDate(newSelectedDate);
+        setSelectedDayIndex((selectedDayIndex === 6 ? 0 : selectedDayIndex + 1));
     };
 
     const currentDate = () => {
-        const day = selectedDate.getDay();
         const date = selectedDate.getDate();
         const month = selectedDate.getMonth();
         const year = selectedDate.getFullYear();
