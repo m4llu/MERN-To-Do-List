@@ -87,32 +87,33 @@ const themes = {
         glow2: 'rgba(0, 255, 0, 0.5)'
     },
     cyberpunk2077: {
-        color1: '#BE285E',
-        color2: '#F98F13',
-        color3: '#C5534B',
-        color4: '#716362',
-        color5: '#7E3C95',
-        color6: '#5453AB',
-        background: '#1e3261',
-        mainText: '#70f3ff',
-        secondaryText: '#ff3b68',
+        color1: '#FF4D6D', // Pink
+        color2: '#FF6B9D', // Lighter Pink
+        color3: '#FF8BD3', // Light Pink
+        color4: '#58EBF7', // Light Cyan
+        color5: '#2CD3F2', // Cyan
+        color6: '#00A9D5', // Darker Cyan
+        background: '#01012b',
+        mainText: '#d1f7ff',
+        secondaryText: '#ff2a6d',
         inputText: '#C9D9DE',
-        inputBackground: '#30131C',
-        nav: '#290B1D'
+        inputBackground: '#0c1d38',
+        nav: '#0d131f',
+        glow: '#05d9e8',
     },
-    neon: {
-        color1: '#FF00FF',
-        color2: '#00FFFF',
-        color3: '#FFFF00',
-        color4: '#FF69B4',
-        color5: '#7CFC00',
-        color6: '#FFD700',
-        background: '#000000',
-        mainText: '#FFFFFF',
-        secondaryText: '#D3D3D3',
-        inputText: '#FFFF00',
-        inputBackground: '#191970',
-        nav: '#4B0082'
+    cyberpunkGrey: {
+        color1: '#FF4D6D', // Pink
+        color2: '#FF6B9D', // Lighter Pink
+        color3: '#FF8BD3', // Light Pink
+        color4: '#58EBF7', // Light Cyan
+        color5: '#2CD3F2', // Cyan
+        color6: '#00A9D5', // Darker Cyan
+        background: '#1C1F2A', // Dark Background
+        mainText: '#FFFFFF', // White Text
+        secondaryText: '#ff2a6d', // Grayish Text
+        inputText: '#A5B1BE', // Light Gray Text
+        inputBackground: '#2A2F3C', // Darker Input Background
+        nav: '#323848', // Navigation Color
     },
     pastelDreams: {
         color1: '#FFC0CB',
@@ -156,34 +157,6 @@ const themes = {
         inputBackground: '#4B0082',
         nav: '#9400D3'
     },
-    enchantedForest: {
-        color1: '#228B22',
-        color2: '#8B4513',
-        color3: '#8FBC8F',
-        color4: '#556B2F',
-        color5: '#32CD32',
-        color6: '#BDB76B',
-        background: '#2E8B57',
-        mainText: '#FFFFFF',
-        secondaryText: '#A0522D',
-        inputText: '#8B008B',
-        inputBackground: '#6B8E23',
-        nav: '#3CB371'
-    },
-    fireAndIce: {
-        color1: '#FF4500',
-        color2: '#1E90FF',
-        color3: '#FF1493',
-        color4: '#4169E1',
-        color5: '#FF8C00',
-        color6: '#00BFFF',
-        background: '#000000',
-        mainText: '#FFFFFF',
-        secondaryText: '#B0C4DE',
-        inputText: '#FFD700',
-        inputBackground: '#FF4500',
-        nav: '#4682B4'
-    },
     desertSunset: {
         color1: '#FFD700',
         color2: '#FF4500',
@@ -211,6 +184,48 @@ const themes = {
         inputText: '#ADD8E6',
         inputBackground: '#00BFFF',
         nav: '#4682B4'
+    },
+    mysticMoonlight: {
+        color1: '#36454F',
+        color2: '#2E8B57',
+        color3: '#6A5ACD',
+        color4: '#483D8B',
+        color5: '#9370DB',
+        color6: '#778899',
+        background: '#191970',
+        mainText: '#FFFFFF',
+        secondaryText: '#B0C4DE',
+        inputText: '#B0E0E6',
+        inputBackground: '#4682B4',
+        nav: '#4169E1'
+    },
+    goldenAutumn: {
+        color1: '#FFD700',
+        color2: '#FFA500',
+        color3: '#8B4513',
+        color4: '#CD853F',
+        color5: '#DAA520',
+        color6: '#FF7F50',
+        background: '#F4A460',
+        mainText: '#8B0000',
+        secondaryText: '#A52A2A',
+        inputText: '#BC8F8F',
+        inputBackground: '#FF4500',
+        nav: '#FF6347'
+    },
+    emeraldOasis: {
+        color1: '#2E8B57',
+        color2: '#20B2AA',
+        color3: '#7FFF00',
+        color4: '#32CD32',
+        color5: '#00FF7F',
+        color6: '#90EE90',
+        background: '#F0FFF0',
+        mainText: '#006400',
+        secondaryText: '#008000',
+        inputText: '#228B22',
+        inputBackground: '#ADFF2F',
+        nav: '#3CB371'
     }
 };
 
