@@ -295,7 +295,8 @@ const themes = {
         secondaryText: '#BEBEBE',
         inputText: '#CCCCCC',
         inputBackground: '#28162C',
-        nav: '#210E22'
+        nav: '#210E22',
+        glow: '#F2E0FF',
     },
     tranquilWaters: {
         color1: '#003366',
