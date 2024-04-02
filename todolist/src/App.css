@@ -96,7 +96,6 @@ input {
 .taskCreator .top {
   display: flex;
   position: relative;
-  min-height: 55px;
   margin-bottom: 2.5%;
 }
 
@@ -255,7 +254,7 @@ select {
   }
 
   .titleInput {
-    font-size: 18px; /* Decrease font size for title input */
+    font-size: 16px; /* Decrease font size for title input */
   }
 
   .taskInput {
@@ -293,7 +292,7 @@ select {
   }
 
   .titleInput {
-    font-size: 18px; /* Decrease font size for title input */
+    font-size: 10px; /* Decrease font size for title input */
   }
 
   .taskInput {
