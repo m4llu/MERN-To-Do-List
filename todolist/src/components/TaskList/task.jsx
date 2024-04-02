@@ -8,11 +8,11 @@ function Task(props) {
             await fetch(`http://localhost:3001/${props.id}`, {
                 method: 'DELETE'
             });
+            props.setUpdateFlag(prev => !prev); // Trigger update in List component
             // Check if the deleted task was selected
             if (isSelected) {
                 props.onSelect(null); // Deselect the task
             }
-            props.setUpdateFlag(prev => !prev); // Trigger update in List component
         } catch (error) {
             console.error("Error deleting task:", error);
         }

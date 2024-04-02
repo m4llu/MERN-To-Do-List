@@ -1,17 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const backend = require("../mongo/TestBackend");
-const mongoose = require("mongoose");
 
-console.log("Backend object:", backend); // Check the backend object
-
-/* POST route for creating a new task at the root endpoint */
 router.post("/", async function (req, res, next) {
     try {
         const { title, color, description } = req.body;
         const data = { title, color, description };
-
-        console.log("Data received:", data); // Log the data received
 
         const savedData = await backend.saveData(data);
         console.log("Data saved:", savedData);
@@ -22,20 +16,16 @@ router.post("/", async function (req, res, next) {
     }
 });
 
-/* GET route for fetching all tasks from the root endpoint */
 router.get("/", async function (req, res, next) {
     const data = await backend.getAllTasks();
     console.log("All tasks:", data);
     res.json(data); // Return the data directly without wrapping it in an object
 });
 
-/* DELETE route to delete a task by ID from the root endpoint */
 router.delete("/:id", async function (req, res, next) {
     try {
         const dataId = req.params.id;
-        const objectId = new mongoose.Types.ObjectId(dataId);
-        console.log("Deleting task with ID:", dataId); // Log the ID being deleted
-        await backend.deleteData(objectId);
+        await backend.deleteData(dataId);
         res.json({ status: "ok" });
     } catch (error) {
         console.error("Error:", error);
@@ -43,16 +33,11 @@ router.delete("/:id", async function (req, res, next) {
     }
 });
 
-/* PUT route to update a task by ID from the root endpoint */
 router.put("/:id", async function (req, res, next) {
     try {
         const taskId = req.params.id;
         const { title, color, description } = req.body;
-        const updatedTask = await Task.findByIdAndUpdate(
-            taskId,
-            { title, color, description },
-            { new: true } // Return the updated task
-        );
+        const updatedTask = await backend.editData(taskId, { title, color, description });
 
         if (!updatedTask) {
             return res.status(404).json({ status: "error", message: "Task not found" });

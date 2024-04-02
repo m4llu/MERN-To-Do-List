@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // saveDataToBackend function
-function saveDataToBackend(taskData, setUpdateFlag) {
+function saveDataToBackend(taskData, setUpdateFlag, resetTaskData) {
     const url = taskData.id ? `http://localhost:3001/${taskData.id}` : 'http://localhost:3001/';
     const method = taskData.id ? 'PUT' : 'POST';
 
@@ -16,50 +16,57 @@ function saveDataToBackend(taskData, setUpdateFlag) {
     .then(data => {
         console.log('Data saved:', data);
         setUpdateFlag(prev => !prev);
+        resetTaskData(); // Reset taskData after the save operation is completed
     })
     .catch(error => {
         console.error('Error saving data:', error);
     });
 }
 
-function TaskCreator({ onTaskAdded, theme, isTaskSelected }) {
+function TaskCreator({ onTaskAdded, onTaskEdited, theme, isTaskSelected, selectedTask }) {
     const [selectedColor, setSelectedColor] = useState('');
     const [taskData, setTaskData] = useState({
+        id: '', 
         title: '',
         color: '',
         description: ''
     });
 
     useEffect(() => {
-        // Set the first color as selected when the component mounts or when the theme changes
-        setSelectedColor(theme.color1);
-        setTaskData({ ...taskData, color: theme.color1 });
-    }, [theme.color1]);
-
-    useEffect(() => {
-        // Update the button color when the theme changes
-        setSelectedColor(theme.color1);
-    }, [theme]);
+        if (isTaskSelected && selectedTask) {
+            setTaskData(selectedTask);
+            setSelectedColor(selectedTask.color);
+        } else {
+            setTaskData({ id: null, title: '', color: '', description: '' }); // Reset taskData
+            setSelectedColor(theme.color1);
+        }
+    }, [isTaskSelected, selectedTask, theme]);
 
     const handleColorClick = (color) => {
         setTaskData({ ...taskData, color: color });
         setSelectedColor(color);
     };
 
-    const colorArray = [theme.color1, theme.color2, theme.color3, theme.color4, theme.color5, theme.color6];
-
-    const handleAddTask = () => {
+const handleAddTask = () => {
+    if (isTaskSelected && selectedTask) {
+        // If a task is selected, update it
+        const updatedTaskData = { ...taskData, id: selectedTask.id }; // Preserve the ID of the selected task
+        saveDataToBackend(updatedTaskData, () => {
+            onTaskEdited();
+            // Reset taskData after the save operation is completed
+            setTaskData({ id: null, title: '', color: '', description: '' });
+            setSelectedColor(theme.color1);
+        });
+    } else {
+        // Otherwise, add a new task
         saveDataToBackend(taskData, () => {
-            onTaskAdded(); 
+            onTaskAdded();
+            // Reset taskData after the save operation is completed
+            setTaskData({ id: null, title: '', color: '', description: '' });
+            setSelectedColor(theme.color1);
         });
-        setTaskData({
-            title: '',
-            color: '',
-            description: ''
-        });
-        // Set the button color to the first color
-        setSelectedColor(theme.color1);
-    };
+    }
+};
 
     return (
         <div className="taskCreator">
@@ -79,7 +86,7 @@ function TaskCreator({ onTaskAdded, theme, isTaskSelected }) {
                         backgroundColor: theme.inputBackground,
                         boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
                     }}>
-                    {colorArray.map((color, index) => (
+                    {Object.values(theme).slice(0, 6).map((color, index) => (
                         <div key={index} className={`color ${selectedColor === color ? 'selected' : ''}`} style={{ backgroundColor: color }} onClick={() => handleColorClick(color)}></div>
                     ))}
                 </div>

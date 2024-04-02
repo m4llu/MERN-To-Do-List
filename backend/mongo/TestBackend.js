@@ -1,10 +1,8 @@
-const mongoose = require("mongoose");
 const { Task } = require("./schema");
 
 async function getAllTasks() {
     try {
         const allTasks = await Task.find();
-        
         return allTasks.map((task) => ({
             id: task._id.toHexString(),
             title: task.title,
@@ -19,34 +17,20 @@ async function getAllTasks() {
 
 async function saveData(task) {
     console.log("Task to save:", JSON.stringify(task));
-    const timestamp = new Date().getTime();
     const savedTask = await Task.create({
         title: task.title,
         color: task.color,
         description: task.description,
     });
-
-    console.log(savedTask);
-    const taskId = savedTask._id.toHexString();
-    return {
-        id: taskId,
-        title: task.title,
-        color: task.color,
-        description: task.description,
-        time: timestamp,
-    };
+    return savedTask;
 }
 
 async function deleteData(id) {
     try {
-        const result = await Task.deleteOne({ _id: id });
-        if (result.deletedCount === 0) {
-            throw new Error("No task was deleted");
-        }
-
-        console.log("Deleted task: ", result);
+        await Task.deleteOne({ _id: id });
+        console.log("Deleted task with ID:", id);
     } catch (error) {
-        console.error("Failed to delete task: ", error);
+        console.error("Failed to delete task:", error);
         throw error;
     }
 }
@@ -56,7 +40,7 @@ async function editData(id, newData) {
         const updatedTask = await Task.findByIdAndUpdate(
             id,
             newData,
-            { new: true } // Return the updated task
+            { new: true }
         );
 
         if (!updatedTask) {
