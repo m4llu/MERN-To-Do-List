@@ -13,6 +13,22 @@ const themes = {
         inputBackground: '#252a2a',
         nav: '#252a2a'
     },
+    theBestOne: {
+        color1: '#FF0000', // Red
+        color2: '#00FF00', // Green
+        color3: '#000000', // Black
+        color4: '#FFFF00', // Yellow
+        color5: '#0000FF', // Blue
+        color6: '#FF00FF', // Magenta
+        background: '#00FFFF', // Cyan
+        mainText: '#FFA500', // Orange
+        secondaryText: '#FF69B4', // Hot Pink
+        inputText: '#7FFF00', // Chartreuse
+        inputBackground: '#8B0000', // Dark Red
+        nav: '#9400D3', // Dark Violet
+        glow: '#FFD700', // Gold
+        glow2: '#00CED1' // Dark Turquoise
+    },
     lunarGlow: {
         color1: '#BF3D55',
         color2: '#8C3874',
@@ -130,18 +146,18 @@ const themes = {
         nav: '#B0E0E6'
     },
     vaporwave: {
-        color1: '#FF6AC1',
-        color2: '#AC7EFF',
-        color3: '#7D56FF',
-        color4: '#00FFA3',
-        color5: '#FFD700',
-        color6: '#FF7F50',
-        background: '#17002D',
-        mainText: '#FFFFFF',
-        secondaryText: '#C0C0C0',
-        inputText: '#FF69B4',
-        inputBackground: '#4B0082',
-        nav: '#9400D3'
+        color1: '#9b30ff', // Purple
+        color2: '#763bff', // Purple
+        color3: '#4f47ff', // Blue
+        color4: '#2761ff', // Blue
+        color5: '#007fff', // Blue
+        color6: '#0099ff', // Blue
+        background: '#17002D', // Dark Purple
+        mainText: '#FFFFFF', // White
+        secondaryText: '#C0C0C0', // Light Gray
+        inputText: '#FF69B4', // Pink
+        inputBackground: '#4B0082', // Indigo
+        nav: '#9400D3' // Violet
     },
     desertSunset: {
         color1: '#FFD700',
