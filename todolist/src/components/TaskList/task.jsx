@@ -3,12 +3,14 @@ import React from 'react';
 function Task(props) {
     const isSelected = props.selectedTask && props.selectedTask.id === props.id;
 
-    const handleDelete = async () => {
+    const handleDelete = async (event) => {
+        event.stopPropagation(); // Stop event propagation to prevent task selection
         try {
             await fetch(`http://localhost:3001/${props.id}`, {
                 method: 'DELETE'
             });
             props.setUpdateFlag(prev => !prev); // Trigger update in List component
+            
             // Check if the deleted task was selected
             if (isSelected) {
                 props.onSelect(null); // Deselect the task

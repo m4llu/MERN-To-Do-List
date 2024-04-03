@@ -19,7 +19,9 @@ function App() {
 
     const handleTaskAdded = () => {
         setUpdateFlag(prev => !prev);
+        setSelectedTask(undefined)
     };
+
 
     const handleTaskSelect = (taskData) => {
         setSelectedTask(taskData); // Set the selected task data

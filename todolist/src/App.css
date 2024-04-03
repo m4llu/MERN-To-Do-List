@@ -185,7 +185,8 @@ input {
   overflow-x: hidden;
   width: 60%;
   max-width: 602px;
-  height: 300px;
+  height: auto;
+  max-height: 400px;
   padding: 2%;
   border-radius: 30px;
   margin-bottom: 2%;

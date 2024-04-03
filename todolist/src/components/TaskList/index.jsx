@@ -29,8 +29,9 @@ function List({ updateFlag, setUpdateFlag, theme, onSelect, selectedDate, select
         formattedSelectedDate = ""; // or set to null or any default value
     }
 
-    // Filter tasks based on selected date
-    const filteredTasks = tasks.filter(task => task.date === formattedSelectedDate);
+    const filteredTasks = tasks.filter(task => task.date === formattedSelectedDate);    
+
+    
 
     return (
         <div className="list" style={{ backgroundColor: theme.inputBackground }}>            

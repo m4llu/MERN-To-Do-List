@@ -1,60 +1,56 @@
 import React, { useState, useEffect } from 'react';
 
-// saveDataToBackend function
-// saveDataToBackend function
-// saveDataToBackend function
-function saveDataToBackend(taskData, setUpdateFlag, resetTaskData) {
+function saveDataToBackend(taskData, setUpdateFlag, defaultColor) {
     const url = taskData.id ? `http://localhost:3001/${taskData.id}` : 'http://localhost:3001/';
     const method = taskData.id ? 'PUT' : 'POST';
+    const dateToSend = method === 'POST' ? taskData.date.toISOString().slice(0, 10) : undefined;
 
-    // Convert selectedDate to ISO string and slice to get only date part
-    const dateToSend = taskData.selectedDate.toISOString().slice(0, 10);
-    
+    // Check if task color is null and assign theme.color1 if it is
+    const colorToSend = taskData.color ? taskData.color : defaultColor;
+
     const dataToSend = {
         title: taskData.title,
-        color: taskData.color,
+        color: colorToSend,
         description: taskData.description,
-        date: dateToSend // Send date in YYYY-MM-DD format
+        date: dateToSend,
     };
 
     fetch(url, {
         method: method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dataToSend),
     })
     .then(response => response.json())
     .then(data => {
         console.log('Data saved:', data);
         setUpdateFlag(prev => !prev);
-        resetTaskData(); // Reset taskData after the save operation is completed
     })
-    .catch(error => {
-        console.error('Error saving data:', error);
-    });
+    .catch(error => console.error('Error saving data:', error));
 }
 
-function TaskCreator({ onTaskAdded, onTaskEdited, theme, selectedTask, selectedDate }) {
+function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
     const [selectedColor, setSelectedColor] = useState('');
     const [taskData, setTaskData] = useState({
         id: '',
         title: '',
         color: '',
         description: '',
-        date: ''
+        date: selectedDate || new Date()
     });
 
     useEffect(() => {
-        console.log("Selected Task:", selectedTask); // Add this line
+        console.log("Selected Task:", selectedTask);
         if (selectedTask) {
             setTaskData(selectedTask);
             setSelectedColor(selectedTask.color);
         } else {
-            setTaskData(prevData => ({
-                ...prevData,
-                color: prevData.color || theme.color1
-            }));
+            setTaskData({
+                id: '',
+                title: '',
+                color: '',
+                description: '',
+                date: selectedDate || new Date() // Reset input fields when task is deselected
+            });
             setSelectedColor(theme.color1);
         }
     }, [selectedTask, theme]);
@@ -65,25 +61,19 @@ function TaskCreator({ onTaskAdded, onTaskEdited, theme, selectedTask, selectedD
     };
 
     const handleAddTask = () => {
-        if (selectedTask) {
-            const updatedTaskData = { ...taskData, id: selectedTask.id };
-            saveDataToBackend(updatedTaskData, () => {
-                onTaskEdited();
-                setTaskData({ id: '', title: '', color: '', description: '', date: '' }); // Reset taskData
-                setSelectedColor(theme.color1);
-            });
-        } else {
-            const newTaskData = {
-                ...taskData,
-                color: taskData.color || theme.color1,
-                date: selectedDate // Use selectedDate instead of date
-            };
-            saveDataToBackend(newTaskData, () => {
-                onTaskAdded();
-                setTaskData({ id: '', title: '', color: '', description: '', date: '' }); // Reset taskData
-                setSelectedColor(theme.color1);
-            });
+        const updatedTaskData = { ...taskData, id: selectedTask?.id };
+        delete updatedTaskData.date;
+
+        if (!selectedTask) {
+            updatedTaskData.date = taskData.date || selectedDate || new Date();
         }
+
+        saveDataToBackend(updatedTaskData, () => {
+            onTaskAdded();
+            setTaskData({ id: '', title: '', color: '', description: '', date: '' });
+            setSelectedColor(theme.color1);
+            
+        }, theme.color1);
     };
 
     return (
@@ -122,28 +112,15 @@ function TaskCreator({ onTaskAdded, onTaskEdited, theme, selectedTask, selectedD
                         boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
                     }}
                 ></textarea>
-                {selectedTask && ( // Render edit button only if task is selected
-                    <button
-                        className='add'
-                        style={{
-                            backgroundColor: selectedColor,
-                            boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
-                        }}
-                        onClick={handleAddTask}>
-                        EDIT
-                    </button>
-                )}
-                {!selectedTask && ( // Render add button if no task is selected
-                    <button
-                        className='add'
-                        style={{
-                            backgroundColor: selectedColor,
-                            boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
-                        }}
-                        onClick={handleAddTask}>
-                        ADD
-                    </button>
-                )}
+                <button
+                    className='add'
+                    style={{
+                        backgroundColor: selectedColor,
+                        boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
+                    }}
+                    onClick={handleAddTask}>
+                    {selectedTask ? 'EDIT' : 'ADD'}
+                </button>
             </div>
         </div>
     );
