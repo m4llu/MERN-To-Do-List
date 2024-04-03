@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 function saveDataToBackend(taskData, setUpdateFlag, defaultColor) {
     const url = taskData.id ? `http://localhost:3001/${taskData.id}` : 'http://localhost:3001/';
     const method = taskData.id ? 'PUT' : 'POST';
-    const dateToSend = method === 'POST' ? taskData.date.toISOString().slice(0, 10) : undefined;
+
+    const dateToSend = method === 'POST' ? taskData.date.toISOString().slice(0, 10) : taskData.date ? taskData.date.toISOString().slice(0, 10) : undefined;
 
     // Check if task color is null and assign theme.color1 if it is
     const colorToSend = taskData.color ? taskData.color : defaultColor;
@@ -44,16 +45,13 @@ function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
             setTaskData(selectedTask);
             setSelectedColor(selectedTask.color);
         } else {
-            setTaskData({
-                id: '',
-                title: '',
-                color: '',
-                description: '',
-                date: selectedDate || new Date() // Reset input fields when task is deselected
-            });
+            setTaskData(prevData => ({
+                ...prevData,
+                date: selectedDate || prevData.date || new Date() // Only update date when selectedDate changes
+            }));
             setSelectedColor(theme.color1);
         }
-    }, [selectedTask, theme]);
+    }, [selectedTask, selectedDate, theme]);
 
     const handleColorClick = (color) => {
         setTaskData({ ...taskData, color: color });
