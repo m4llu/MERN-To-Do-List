@@ -55,7 +55,6 @@
 }
 
 .day {
-  width: 185px;
   font-weight: 500;
   font-size: 24px;
   margin-top: 0px;
@@ -223,13 +222,19 @@ input {
   overflow-wrap: break-word;
 }
 
+.date {
+  font-weight: 50;
+  font-size: smaller;
+  float: right;
+}
+
 .taskButton {
   margin: -10px;
   background: none;
   border: none;
   color: #FFF;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 22px;
   opacity: 0.5;
   transition: 0.3s;
 }

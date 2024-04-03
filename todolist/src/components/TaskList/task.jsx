@@ -31,13 +31,13 @@ function Task(props) {
             className={`task ${isSelected ? 'selected' : ''}`} 
             style={{ backgroundColor: props.color }} 
             onClick={handleTaskClick} // Handle task click to toggle selection
-        >
+        ><div className='date'>{props.date}</div>
             <div className='buttonContainer'>
                 <button className="taskButton" onClick={handleDelete}>X</button>
             </div>
             <h2>{props.title}</h2>
             <p>{props.description}</p>
-            <p>{props.date}</p>
+            
         </div>
     );
 }
