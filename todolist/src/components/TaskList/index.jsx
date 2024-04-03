@@ -1,10 +1,8 @@
-// List.js
 import React, { useState, useEffect } from 'react';
 import Task from './task'; // Assuming the Task component file is named Task.js
 
-function List({ updateFlag, setUpdateFlag, theme, onSelect }) { // Add onSelect prop
+function List({ updateFlag, setUpdateFlag, theme, onSelect, selectedDate, selectedTask }) { // Add selectedDate prop and selectedTask prop
     const [tasks, setTasks] = useState([]);
-    const [selectedTaskId, setSelectedTaskId] = useState(null); // State to track selected task ID
 
     const fetchTasks = () => {
         fetch('http://localhost:3001/')
@@ -22,23 +20,31 @@ function List({ updateFlag, setUpdateFlag, theme, onSelect }) { // Add onSelect 
         fetchTasks();
     }, [updateFlag]); // Run fetchTasks whenever updateFlag changes
 
-    const handleTaskSelect = (taskId) => {
-        setSelectedTaskId(taskId);
-        onSelect(taskId); // Call onSelect prop to update selectedTaskId in App.js
-    };
+    // Convert selectedDate to "YYYY-MM-DD" format
+    let formattedSelectedDate;
+    try {
+        formattedSelectedDate = new Date(selectedDate).toISOString().slice(0, 10);
+    } catch (error) {
+        console.error('Error converting selectedDate to "YYYY-MM-DD" format:', error);
+        formattedSelectedDate = ""; // or set to null or any default value
+    }
+
+    // Filter tasks based on selected date
+    const filteredTasks = tasks.filter(task => task.date === formattedSelectedDate);
 
     return (
         <div className="list" style={{ backgroundColor: theme.inputBackground }}>            
-            {Array.isArray(tasks) && tasks.map(task => (
+            {Array.isArray(filteredTasks) && filteredTasks.map(task => (
                 <Task
                     key={task.id}
                     id={task.id}
                     title={task.title}
                     description={task.description}
+                    date={task.date}
                     color={task.color}
                     setUpdateFlag={setUpdateFlag}
-                    onSelect={handleTaskSelect} // Pass handleTaskSelect to Task component
-                    selectedTaskId={selectedTaskId} // Pass selectedTaskId to Task component
+                    onSelect={onSelect} // Pass onSelect directly to Task component
+                    selectedTask={selectedTask} // Pass selectedTask to Task component
                     theme={theme} // Pass theme to Task component
                 />
             ))}

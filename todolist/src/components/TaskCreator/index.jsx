@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 
 // saveDataToBackend function
+// saveDataToBackend function
+// saveDataToBackend function
 function saveDataToBackend(taskData, setUpdateFlag, resetTaskData) {
     const url = taskData.id ? `http://localhost:3001/${taskData.id}` : 'http://localhost:3001/';
     const method = taskData.id ? 'PUT' : 'POST';
+
+    // Convert selectedDate to ISO string and slice to get only date part
+    const dateToSend = taskData.selectedDate.toISOString().slice(0, 10);
+    
+    const dataToSend = {
+        title: taskData.title,
+        color: taskData.color,
+        description: taskData.description,
+        date: dateToSend // Send date in YYYY-MM-DD format
+    };
 
     fetch(url, {
         method: method,
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title: taskData.title, color: taskData.color, description: taskData.description }),
+        body: JSON.stringify(dataToSend),
     })
     .then(response => response.json())
     .then(data => {
@@ -23,50 +35,56 @@ function saveDataToBackend(taskData, setUpdateFlag, resetTaskData) {
     });
 }
 
-function TaskCreator({ onTaskAdded, onTaskEdited, theme, isTaskSelected, selectedTask }) {
+function TaskCreator({ onTaskAdded, onTaskEdited, theme, selectedTask, selectedDate }) {
     const [selectedColor, setSelectedColor] = useState('');
     const [taskData, setTaskData] = useState({
-        id: '', 
+        id: '',
         title: '',
         color: '',
-        description: ''
+        description: '',
+        date: ''
     });
 
     useEffect(() => {
-        if (isTaskSelected && selectedTask) {
+        console.log("Selected Task:", selectedTask); // Add this line
+        if (selectedTask) {
             setTaskData(selectedTask);
             setSelectedColor(selectedTask.color);
         } else {
-            setTaskData({ id: null, title: '', color: '', description: '' }); // Reset taskData
+            setTaskData(prevData => ({
+                ...prevData,
+                color: prevData.color || theme.color1
+            }));
             setSelectedColor(theme.color1);
         }
-    }, [isTaskSelected, selectedTask, theme]);
+    }, [selectedTask, theme]);
 
     const handleColorClick = (color) => {
         setTaskData({ ...taskData, color: color });
         setSelectedColor(color);
     };
 
-const handleAddTask = () => {
-    if (isTaskSelected && selectedTask) {
-        // If a task is selected, update it
-        const updatedTaskData = { ...taskData, id: selectedTask.id }; // Preserve the ID of the selected task
-        saveDataToBackend(updatedTaskData, () => {
-            onTaskEdited();
-            // Reset taskData after the save operation is completed
-            setTaskData({ id: null, title: '', color: '', description: '' });
-            setSelectedColor(theme.color1);
-        });
-    } else {
-        // Otherwise, add a new task
-        saveDataToBackend(taskData, () => {
-            onTaskAdded();
-            // Reset taskData after the save operation is completed
-            setTaskData({ id: null, title: '', color: '', description: '' });
-            setSelectedColor(theme.color1);
-        });
-    }
-};
+    const handleAddTask = () => {
+        if (selectedTask) {
+            const updatedTaskData = { ...taskData, id: selectedTask.id };
+            saveDataToBackend(updatedTaskData, () => {
+                onTaskEdited();
+                setTaskData({ id: '', title: '', color: '', description: '', date: '' }); // Reset taskData
+                setSelectedColor(theme.color1);
+            });
+        } else {
+            const newTaskData = {
+                ...taskData,
+                color: taskData.color || theme.color1,
+                date: selectedDate // Use selectedDate instead of date
+            };
+            saveDataToBackend(newTaskData, () => {
+                onTaskAdded();
+                setTaskData({ id: '', title: '', color: '', description: '', date: '' }); // Reset taskData
+                setSelectedColor(theme.color1);
+            });
+        }
+    };
 
     return (
         <div className="taskCreator">
@@ -104,23 +122,24 @@ const handleAddTask = () => {
                         boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
                     }}
                 ></textarea>
-                {isTaskSelected ? (
+                {selectedTask && ( // Render edit button only if task is selected
                     <button
                         className='add'
                         style={{
-                            backgroundColor: theme.color1,
+                            backgroundColor: selectedColor,
                             boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
-                        }} // Set the button color
+                        }}
                         onClick={handleAddTask}>
                         EDIT
                     </button>
-                ) : (
+                )}
+                {!selectedTask && ( // Render add button if no task is selected
                     <button
                         className='add'
                         style={{
-                            backgroundColor: taskData.color || theme.color1,
+                            backgroundColor: selectedColor,
                             boxShadow: theme.glow2 ? `0 0 15px ${theme.glow2}` : 'inset 0px 4px 4px #00000040'
-                        }} // Set the button color
+                        }}
                         onClick={handleAddTask}>
                         ADD
                     </button>

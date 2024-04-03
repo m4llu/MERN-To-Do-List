@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function DayPicker({ theme }) {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
+function DayPicker({ theme, selectedDate, setSelectedDate }) {
     const handlePrevDay = () => {
         const newSelectedDate = new Date(selectedDate);
         newSelectedDate.setDate(selectedDate.getDate() - 1);
-        setSelectedDate(newSelectedDate);
+        setSelectedDate(newSelectedDate); // Update selected date in the App component
     };
-
+    
     const handleNextDay = () => {
         const newSelectedDate = new Date(selectedDate);
         newSelectedDate.setDate(selectedDate.getDate() + 1);
-        setSelectedDate(newSelectedDate);
+        setSelectedDate(newSelectedDate); // Update selected date in the App component
     };
 
     const currentDate = () => {
@@ -32,6 +30,7 @@ function DayPicker({ theme }) {
         color: theme.mainText,
         textShadow: theme.glow ? `0 0 5px ${theme.glow}` : 'none'
     };
+    
 
     return (
         <div className="dayPicker">

@@ -4,8 +4,8 @@ const backend = require("../mongo/TestBackend");
 
 router.post("/", async function (req, res, next) {
     try {
-        const { title, color, description } = req.body;
-        const data = { title, color, description };
+        const { title, color, description, date } = req.body;
+        const data = { title, color, description, date }; // Include date in the data object
 
         const savedData = await backend.saveData(data);
         console.log("Data saved:", savedData);
@@ -36,8 +36,8 @@ router.delete("/:id", async function (req, res, next) {
 router.put("/:id", async function (req, res, next) {
     try {
         const taskId = req.params.id;
-        const { title, color, description } = req.body;
-        const updatedTask = await backend.editData(taskId, { title, color, description });
+        const { title, color, description, date } = req.body; // Include date in the destructuring
+        const updatedTask = await backend.editData(taskId, { title, color, description, date }); // Pass date to the editData function
 
         if (!updatedTask) {
             return res.status(404).json({ status: "error", message: "Task not found" });

@@ -8,6 +8,7 @@ async function getAllTasks() {
             title: task.title,
             color: task.color,
             description: task.description,
+            date: task.date
         }));
     } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -21,6 +22,7 @@ async function saveData(task) {
         title: task.title,
         color: task.color,
         description: task.description,
+        date: task.date
     });
     return savedTask;
 }

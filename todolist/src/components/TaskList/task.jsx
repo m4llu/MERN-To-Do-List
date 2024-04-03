@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Task(props) {
-    const isSelected = props.selectedTaskId === props.id;
+    const isSelected = props.selectedTask && props.selectedTask.id === props.id;
 
     const handleDelete = async () => {
         try {
@@ -20,8 +20,8 @@ function Task(props) {
 
     const handleTaskClick = () => {
         // Toggle task selection status
-        const newSelectedTaskId = isSelected ? null : props.id;
-        props.onSelect(newSelectedTaskId);
+        const newSelectedTask = isSelected ? null : { id: props.id, title: props.title, description: props.description, date: props.date, color: props.color };
+        props.onSelect(newSelectedTask);
     };
 
     return (
@@ -35,6 +35,7 @@ function Task(props) {
             </div>
             <h2>{props.title}</h2>
             <p>{props.description}</p>
+            <p>{props.date}</p>
         </div>
     );
 }

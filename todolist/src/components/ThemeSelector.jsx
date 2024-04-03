@@ -6,7 +6,6 @@ function toCamelCase(str) {
 }
 
 function ThemeSelector({ themes, changeTheme, theme }) {
-    console.log("Themes received in ThemeSelector:", themes);
 
     return (
         <div>
