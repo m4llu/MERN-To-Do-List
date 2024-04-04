@@ -45,10 +45,14 @@ function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
             setTaskData(selectedTask);
             setSelectedColor(selectedTask.color);
         } else {
-            setTaskData(prevData => ({
-                ...prevData,
-                date: selectedDate || prevData.date || new Date() // Only update date when selectedDate changes
-            }));
+            // Reset task data and selected color when there is no selected task
+            setTaskData({
+                id: '',
+                title: '',
+                color: '',
+                description: '',
+                date: selectedDate || new Date()
+            });
             setSelectedColor(theme.color1);
         }
     }, [selectedTask, selectedDate, theme]);
@@ -68,9 +72,15 @@ function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
 
         saveDataToBackend(updatedTaskData, () => {
             onTaskAdded();
-            setTaskData({ id: '', title: '', color: '', description: '', date: '' });
+            // Reset task data and selected color after adding/editing task
+            setTaskData({
+                id: '',
+                title: '',
+                color: '',
+                description: '',
+                date: ''
+            });
             setSelectedColor(theme.color1);
-            
         }, theme.color1);
     };
 

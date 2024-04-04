@@ -44,9 +44,9 @@ function List({ updateFlag, setUpdateFlag, theme, onSelect, selectedDate, select
                     date={task.date}
                     color={task.color}
                     setUpdateFlag={setUpdateFlag}
-                    onSelect={onSelect} // Pass onSelect directly to Task component
-                    selectedTask={selectedTask} // Pass selectedTask to Task component
-                    theme={theme} // Pass theme to Task component
+                    onSelect={onSelect}
+                    selectedTask={selectedTask}
+                    theme={theme} 
                 />
             ))}
         </div>

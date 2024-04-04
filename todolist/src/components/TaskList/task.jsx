@@ -4,7 +4,7 @@ function Task(props) {
     const isSelected = props.selectedTask && props.selectedTask.id === props.id;
 
     const handleDelete = async (event) => {
-        event.stopPropagation(); // Stop event propagation to prevent task selection
+        event.stopPropagation(); // Stop event propagation to prevent task selection when delete button is pressed
         try {
             await fetch(`http://localhost:3001/${props.id}`, {
                 method: 'DELETE'
