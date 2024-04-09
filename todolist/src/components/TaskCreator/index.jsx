@@ -6,7 +6,7 @@ function saveDataToBackend(taskData, setUpdateFlag, defaultColor) {
 
     const dateToSend = method === 'POST' ? taskData.date.toISOString().slice(0, 10) : taskData.date ? taskData.date.toISOString().slice(0, 10) : undefined;
 
-    // Check if task color is null and assign theme.color1 if it is
+    // check if task color is null and assign theme.color1 if it is
     const colorToSend = taskData.color ? taskData.color : defaultColor;
 
     const dataToSend = {
@@ -45,7 +45,6 @@ function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
             setTaskData(selectedTask);
             setSelectedColor(selectedTask.color);
         } else {
-            // Reset task data and selected color when there is no selected task
             setTaskData({
                 id: '',
                 title: '',
@@ -72,7 +71,6 @@ function TaskCreator({ onTaskAdded, theme, selectedTask, selectedDate }) {
 
         saveDataToBackend(updatedTaskData, () => {
             onTaskAdded();
-            // Reset task data and selected color after adding/editing task
             setTaskData({
                 id: '',
                 title: '',

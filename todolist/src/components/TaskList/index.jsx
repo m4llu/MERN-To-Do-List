@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Task from './task'; // Assuming the Task component file is named Task.js
+import Task from './task'; 
 
 function List({ updateFlag, setUpdateFlag, theme, onSelect, selectedDate, selectedTask }) { // Add selectedDate prop and selectedTask prop
     const [tasks, setTasks] = useState([]);
@@ -20,13 +20,13 @@ function List({ updateFlag, setUpdateFlag, theme, onSelect, selectedDate, select
         fetchTasks();
     }, [updateFlag]); // Run fetchTasks whenever updateFlag changes
 
-    // Convert selectedDate to "YYYY-MM-DD" format
+
     let formattedSelectedDate;
     try {
         formattedSelectedDate = new Date(selectedDate).toISOString().slice(0, 10);
     } catch (error) {
         console.error('Error converting selectedDate to "YYYY-MM-DD" format:', error);
-        formattedSelectedDate = ""; // or set to null or any default value
+        formattedSelectedDate = ""; 
     }
 
     const filteredTasks = tasks.filter(task => task.date === formattedSelectedDate);    
